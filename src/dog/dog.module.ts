@@ -7,5 +7,6 @@ import { CatModule } from '../cat/cat.module';
   imports: [CatModule],
   controllers: [DogController],
   providers: [DogService],
+  exports: [DogService, CatModule],
 })
 export class DogModule { }

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, InternalServerErrorException } from '@nestjs/common';
 import { CatService } from './cat.service';
 
 @Controller('cats')
@@ -7,6 +7,10 @@ export class CatController {
 
   @Get('mew')
   mew(): string {
-    return this.catService.mew();
+    try {
+      return this.catService.mew();
+    } catch (error) {
+      throw new InternalServerErrorException('An unexpected error occurred while mewing');
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, InternalServerErrorException } from '@nestjs/common';
 import { DogService } from './dog.service';
 
 @Controller('dogs')
@@ -7,6 +7,10 @@ export class DogController {
 
   @Get('bark-at-cat')
   barkAtCat(): string {
-    return this.dogService.barkAtCat();
+    try {
+      return this.dogService.barkAtCat();
+    } catch (error) {
+      throw new InternalServerErrorException('An unexpected error occurred while barking at cat');
+    }
   }
 }
